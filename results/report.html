@@ -1,0 +1,159 @@
+<!doctype html><meta charset="utf-8"><title>Five ETFs versus 60/40</title>
+<style>body{max-width:940px;margin:50px auto;padding:0 20px;color:#203656;font:16px/1.6 system-ui}h1,h2{line-height:1.2}h1{font: bold 42px Georgia}table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:7px;border-bottom:1px solid #ccc;text-align:right}img{max-width:100%}small{color:#526678}</style>
+<small>PORTFOLIO RESEARCH &nbsp; / &nbsp; BENNETT NGUYEN</small>
+<h1>Did five ETFs soften the worst loss?</h1><p>2005-01-03 to 2026-11-18 · 5,504 daily return observations · USD</p>
+<p>Backtested four ETF allocation strategies in Python across 5,504 daily returns. The five-ETF policy recorded a 2.04-point deeper maximum drawdown and 0.12-point lower annualized growth than a quarterly rebalanced 60/40 benchmark.</p><h2>Allocation decision</h2><p>For each initial dollar, the policy allocated 35 cents to SPY, 15 to EFA, 30 to AGG, 10 to VNQ and 10 to GLD. The benchmark invested 60 cents in SPY and 40 in AGG. This comparison measures the combined effect of the allocation changes.</p>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CAGR</th>
+      <th>Volatility</th>
+      <th>Sharpe</th>
+      <th>Max drawdown</th>
+      <th>Calmar</th>
+      <th>Ending wealth per dollar</th>
+      <th>Cumulative gross turnover</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Policy</th>
+      <td>7.69%</td>
+      <td>11.85%</td>
+      <td>0.52</td>
+      <td>-37.03%</td>
+      <td>0.21</td>
+      <td>5.06</td>
+      <td>3.29</td>
+    </tr>
+    <tr>
+      <th>Buy and hold</th>
+      <td>8.08%</td>
+      <td>12.20%</td>
+      <td>0.54</td>
+      <td>-34.74%</td>
+      <td>0.23</td>
+      <td>5.47</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>60-40</th>
+      <td>7.81%</td>
+      <td>11.26%</td>
+      <td>0.55</td>
+      <td>-34.99%</td>
+      <td>0.22</td>
+      <td>5.18</td>
+      <td>2.65</td>
+    </tr>
+    <tr>
+      <th>Equal weight</th>
+      <td>7.95%</td>
+      <td>13.02%</td>
+      <td>0.50</td>
+      <td>-38.63%</td>
+      <td>0.21</td>
+      <td>5.33</td>
+      <td>3.71</td>
+    </tr>
+  </tbody>
+</table>
+<img src="performance.png" alt="Historical portfolio growth and drawdown">
+<h2>What did rebalancing change?</h2><p>With the same initial holdings, the quarterly policy earned 7.69% annualized versus 8.08% for buy and hold. Maximum drawdown was -37.03% versus -34.74%. Buy and hold allowed weights to drift. Quarterly trades restored the original exposures and incurred transaction costs.</p>
+<h2>Losses over identical dates</h2><p>Each row uses the benchmark's worst peak-to-trough interval within the named calendar year, including the previous year-end as the starting value. The final column measures daily SPY–AGG correlation across that year's available sessions.</p>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Year</th>
+      <th>Benchmark peak</th>
+      <th>Benchmark trough</th>
+      <th>Policy return</th>
+      <th>Benchmark return</th>
+      <th>Stock-bond correlation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2008</td>
+      <td>2008-05-19</td>
+      <td>2008-11-20</td>
+      <td>-34.58%</td>
+      <td>-30.53%</td>
+      <td>0.03</td>
+    </tr>
+    <tr>
+      <td>2020</td>
+      <td>2020-02-19</td>
+      <td>2020-03-23</td>
+      <td>-21.69%</td>
+      <td>-21.00%</td>
+      <td>0.14</td>
+    </tr>
+    <tr>
+      <td>2022</td>
+      <td>2022-01-03</td>
+      <td>2022-10-14</td>
+      <td>-21.42%</td>
+      <td>-20.57%</td>
+      <td>0.32</td>
+    </tr>
+  </tbody>
+</table>
+<h2>What drove the gap?</h2><p>Each entry is a contribution to the policy return minus the benchmark return over the same peak-to-trough dates. Contributions use actual holdings through each trade. Each column sums to that period’s performance gap, subject to rounding.</p>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Year</th>
+      <th>2008</th>
+      <th>2020</th>
+      <th>2022</th>
+    </tr>
+    <tr>
+      <th>Exposure</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>BONDS</th>
+      <td>+0.22 pp</td>
+      <td>+0.13 pp</td>
+      <td>+1.44 pp</td>
+    </tr>
+    <tr>
+      <th>GOLD</th>
+      <td>-1.63 pp</td>
+      <td>-0.37 pp</td>
+      <td>-0.71 pp</td>
+    </tr>
+    <tr>
+      <th>INTL_EQ</th>
+      <td>-8.95 pp</td>
+      <td>-4.69 pp</td>
+      <td>-4.29 pp</td>
+    </tr>
+    <tr>
+      <th>REAL_EST</th>
+      <td>-6.14 pp</td>
+      <td>-4.24 pp</td>
+      <td>-3.34 pp</td>
+    </tr>
+    <tr>
+      <th>Trading costs</th>
+      <td>-0.00 pp</td>
+      <td>+0.00 pp</td>
+      <td>-0.00 pp</td>
+    </tr>
+    <tr>
+      <th>US_EQ</th>
+      <td>+12.44 pp</td>
+      <td>+8.49 pp</td>
+      <td>+6.05 pp</td>
+    </tr>
+  </tbody>
+</table>
+<img src="correlation.png" alt="Daily return correlations for five ETFs">
+<h2>Interpretation limits</h2><p>Listed real estate also carries equity risk. These proxies and weights were selected retrospectively. One historical path cannot establish which allocation will offer better protection in the next decline. The Sharpe calculation assumes a constant 2% annual risk-free rate. Taxes, initial funding costs and final liquidation are excluded.</p>

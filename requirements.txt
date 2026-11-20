@@ -1,0 +1,27 @@
+"""Run deterministic checks with python -m unittest."""
+import unittest
+import numpy as np
+import pandas as pd
+from analyze_portfolio import simulate, metrics
+
+
+class PortfolioTests(unittest.TestCase):
+    def setUp(self):
+        self.p = pd.DataFrame([[100,100],[80,100],[120,90]],
+                              columns=["A","B"],index=pd.to_datetime(["2020-03-30","2020-03-31","2020-04-01"]))
+        self.w = np.array([.5,.5])
+
+    def test_buy_hold_matches_units(self):
+        actual = simulate(self.p,self.w,None)
+        np.testing.assert_allclose(actual.NAV,(self.p/self.p.iloc[0])@self.w)
+        self.assertAlmostEqual(metrics(actual.NAV)[3],-.1)
+
+    def test_quarter_boundary_and_fees(self):
+        gross = simulate(self.p,self.w)
+        free = simulate(self.p,self.w,bps=0)
+        self.assertAlmostEqual(free.NAV.iloc[-1],.45*(1.5+.9))
+        self.assertEqual(gross["Gross turnover"].iloc[1],0)
+        self.assertGreater(gross["Gross turnover"].iloc[2],0)
+        self.assertLess(gross.NAV.iloc[-1],free.NAV.iloc[-1])
+        np.testing.assert_allclose(gross.NAV.diff().iloc[1:],
+            (gross.A+gross.B-gross["Fee per initial dollar"]).iloc[1:])

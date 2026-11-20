@@ -1,0 +1,12 @@
+Input SHA-256: 38ca70fc2ea0a4ded887bafb3f9e343395eed492e7714fee6c79ef0ea9e16206
+Rows supplied: 5506
+Complete dates: 5505
+First: 2005-01-03
+Last: 2026-11-18
+Missing values by column:
+US_EQ       1
+INTL_EQ     1
+BONDS       1
+REAL_EST    1
+GOLD        1
+dtype: int64
